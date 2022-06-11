@@ -66,45 +66,31 @@ def check(a,b):
         
         
         for j in range(0,len(lib2)):
-            if((lib2[j][0]>=lib1[i][0]) and (lib2[j][1]<=lib1[i][1])):
-                result.append(lib2[j])
-                
-            elif((lib2[j][0]<=lib1[i][0]) and (lib2[j][1]>=lib1[i][1])):
-                result.append(lib2[i])
-
-    test=False
-    while(test==False):
-        test=True
-        for i in range(0,len(result)-1):
-            if ((result[i]==result[i+1]) or (hts(result[i][1])<=hts((result[i][0])))):
-                result.pop(i)
-                test=False                
-                break
-        if(hts(result[len(result)-1][1])<=hts((result[len(result)-1][0]))):
-            result.pop(len(result)-1)
-    return removeOcc(result)
-            
+            if(hts(lib2[j][0])<hts(lib1[i][1])):
+                result.append(intersect(lib2[j],lib1[i]))
+    i=0
     
-        
+    while(i<len(result)):
+        """
+        print(i)
+        print(" lowla : "+str(hts(result[i][0])))
+        print(" Thenya : "+str(hts(result[i][1])))
+        """
+        if hts(result[i][0])>=hts(result[i][1]):
+            """
+            print("yes")
+            print("["+str(result[i][0])+","+str(result[i][1])+"]")
+            """
+            result.pop(i)
+        i+=1
     
             
 
     return result
         
-def removeOcc(a):
 
-    test=True
-    while test:
-            
-        if(len(a)>2):
-            for i in range(0,len(a)-1):
-                for j in range(i+1,len(a)):
-                    #print(a[i])
-                    if a[i]==a[j]:
-                        a.pop(i)
-                        test=False
-                        break
-    return a       
+        
+        
 b=[["8:30","9:25"],["10:00","10:45"],["12:30","12:50"],["13:00","13:30"],["14:30","15:25"],["16:00","16:45"],["17:30","17:50"],["18:00","19:30"]]
 a=[["8:00","9:25"],["10:00","11:00"],["11:45","15:00"],["17:20","19:00"]]
 """  
@@ -129,7 +115,4 @@ def reunion(a,b):
                test=False
             i+=1
         return(k)
-#print(check(a,b))
-#print(reunion(a,b))
-#print(intersect(["8:30","9:25"],["10:00","10:45"]))
-print(removeOcc([['8:00', '8:30'], ['9:25', '10:00'], ['10:45', '12:30'], ['9:25', '10:00'], ['15:25', '16:00'], ['9:25', '10:00']]))
+print(reunion(a,b))
